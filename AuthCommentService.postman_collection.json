@@ -1,0 +1,175 @@
+{
+  "info": {
+    "name": "Auth Comment Permission Service",
+    "_postman_id": "9a1d31b0-c445-4b9f-bb8a-234fc9b9fc77",
+    "description": "Postman collection for testing the Auth & Comment Permission Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Signup",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/signup",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "auth", "signup"]
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "Forgot Password (Mock Token)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"john@example.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/forgot-password",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "auth", "forgot-password"]
+        }
+      }
+    },
+    {
+      "name": "Reset Password (Mock)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\": \"mock-token\",\n  \"newPassword\": \"newpassword123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/reset-password",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "auth", "reset-password"]
+        }
+      }
+    },
+    {
+      "name": "Assign Permissions",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"john@example.com\",\n  \"permissions\": [\"read\", \"write\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/permissions",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "permissions"]
+        }
+      }
+    },
+    {
+      "name": "Get Comments (Requires Read)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/comments",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "comments"]
+        }
+      }
+    },
+    {
+      "name": "Add Comment (Requires Write)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"This is a test comment.\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/comments",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "comments"]
+        }
+      }
+    },
+    {
+      "name": "Delete Comment (Requires Delete)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{accessToken}}" }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/comments/{{commentId}}",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "comments", "{{commentId}}"]
+        }
+      }
+    },
+    {
+      "name": "Refresh Token",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/refresh-token",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "auth", "refresh-token"]
+        }
+      }
+    },
+    {
+      "name": "Logout",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/auth/logout",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "auth", "logout"]
+        }
+      }
+    }
+  ]
+}
